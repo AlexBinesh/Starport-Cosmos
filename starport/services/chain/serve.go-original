@@ -1,10 +1,6 @@
 package chain
 
 import (
-//    	"github.com/pkg/exec"
-
-	"strconv"
-	"log"
 	"bytes"
 	"context"
 	"fmt"
@@ -17,7 +13,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-	"encoding/json" // Encoding and Decoding Package
+
 	"github.com/tendermint/starport/starport/pkg/dirchange"
 
 	"github.com/tendermint/starport/starport/services"
@@ -35,7 +31,6 @@ import (
 	"github.com/tendermint/starport/starport/pkg/xos"
 	"github.com/tendermint/starport/starport/pkg/xurl"
 	"golang.org/x/sync/errgroup"
-	 gexec "github.com/pkg/exec"
 )
 
 var (
@@ -62,92 +57,6 @@ type serveOptions struct {
 	forceReset bool
 	resetOnce  bool
 }
-
-func homePage(w http.ResponseWriter, r *http.Request){
-    network := r.FormValue("network")
-    operation := r.FormValue("operation")
-    limit := r.FormValue("limit")
-
-    //cmd := gexec.Command("starport", "relayer", "rly", "q", "txs" ,"althea-testnet1v4" , "message.action=transfer", "--offset", "1", "--limit", "1")
-    log.Println("Executing this operation : ",operation)
-    if (operation == "chains"){
-	//EmpData := ""
-	//var Chains []string
-    	log.Println("Looking up  the CHAINS : ")
-    	cmd := gexec.Command("starport", "relayer", "rly", "chains", "list" )
-        out, err := cmd.Output(gexec.Dir("/tmp"))
-        if err != nil {
-                log.Fatal(err)
-        }
-	Chains := strings.Split(string(out), "\n")
-	//fmt.Println("%s", "Chains")
-	for i, rows := range Chains {
-		//Line := strings.SplitAfter(rows, ":")
-  	  ChainName := strings.Fields(rows)
-	  //fmt.Println( i )
-	  j := 0
-	  for _, v := range ChainName {
-    		if (j == 1){
-	//	  fmt.Println(v)
-		  if ( v != ""){
-		  	Chains[i]=v
-	  	  }
-	  	}
-		j++
-  	  }
-	}
-	//fmt.Println("Range is ", range)
-	RetVal, err := json.Marshal(Chains)
-    	if err != nil {
-        	fmt.Println(err.Error())
-        	return
-    	}
-    	fmt.Println(string(RetVal))
-    	fmt.Fprintf(w, string(RetVal))
-   }else if (operation == "balance"){
-
-    //cmd := gexec.Command("starport", "relayer", "rly", "q", "txs" ,network , "message.action=transfer", "--offset", "1", "--limit", limit)
-    	log.Println("Looking up  the Balance for this netwrk: ",network)
-    	cmd := gexec.Command("starport", "relayer", "rly", "q", "balance" ,network )
-        out, err := cmd.Output(gexec.Dir("/tmp"))
-        if err != nil {
-                log.Fatal(err)
-        }
-    	fmt.Fprintf(w, string(out))
-
-    }else if(operation == "txs"){
-    	log.Println("Looking up TXs for this netwrk: ",network)
-    	log.Println("Will Retrieve this many transactions: ", limit)
-    	cmd := gexec.Command("starport", "relayer", "rly", "q", "txs" ,network , "message.action=transfer", "--offset", "1", "--limit", limit)
-        out, err := cmd.Output(gexec.Dir("/tmp"))
-    	log.Println("This is the response fro the  server: |", string(out), "|")
-	NumOfTxs = strconv.Atoi(string(out))
-	if _, err := NumOfTxs ; err == nil {
-	    fmt.Printf("%q looks like a number.\n", NumOfTxs)
-	}else{
-	    fmt.Printf("it is not a number .\n", NumOfTxs)
-
-    		fmt.Fprintf(w, "0")
-	}
-        if err != nil {
-                log.Fatal(err)
-        }
-	if (out != nil){
-    		fmt.Fprintf(w, string(out))
-	}
-
-    }else{
-	    log.Println("!!!! Invalid Operation: ",operation)
-    }
-    //fmt.Println("%s", out)
-}
-
-
-func handleRequests() {
-    http.HandleFunc("/", homePage)
-    log.Fatal(http.ListenAndServe(":10000", nil))
-}
-
 
 func newServeOption() serveOptions {
 	return serveOptions{
@@ -558,10 +467,7 @@ func (c *Chain) start(ctx context.Context, config conf.Config) error {
 	}
 
 	fmt.Fprintf(c.stdLog(logStarport).out, "\n🚀 Get started: %s\n\n", xurl.HTTP(config.Host.DevUI))
-	
-	fmt.Fprintf(c.stdLog(logStarport).out, "🌍 Running a Transaction Retrieval Server at  at PORT 10000 \n")
-	handleRequests()
-	
+
 	return g.Wait()
 }
 

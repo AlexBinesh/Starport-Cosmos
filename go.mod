@@ -7,7 +7,8 @@ require (
 	github.com/Pallinder/go-randomdata v1.2.0
 	github.com/briandowns/spinner v1.11.1
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/cosmos/cosmos-sdk v0.41.3
+	//github.com/cosmos/cosmos-sdk v0.41.3
+	github.com/cosmos/cosmos-sdk v0.42.1
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/relayer v1.0.0-rc1.0.20210205103857-f4b56856caeb
 	github.com/dariubs/percent v0.0.0-20200128140941-b7801cf1c7e2
@@ -39,6 +40,7 @@ require (
 	github.com/otiai10/copy v1.4.2
 	github.com/pelletier/go-toml v1.8.1
 	github.com/pkg/errors v0.9.1
+	github.com/pkg/exec v0.0.0-20150614095509-0bd164ad2a5a // indirect
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rakyll/statik v0.1.7
 	github.com/rdegges/go-ipify v0.0.0-20150526035502-2d94a6a86c40
@@ -49,7 +51,7 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.7.0
 	github.com/tendermint/spn v0.0.0-20201215081711-b9ec9286ed83
-	github.com/tendermint/tendermint v0.34.7
+	github.com/tendermint/tendermint v0.34.8
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
 	golang.org/x/mod v0.4.1
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777 // indirect

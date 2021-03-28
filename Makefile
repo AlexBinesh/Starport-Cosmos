@@ -12,6 +12,7 @@ pre-build:
 install: pre-build
 	@echo Installing Starport...
 	@go install $(BUILD_FLAGS) ./...
+	@sudo cp  ~/go/bin/starport /usr/local/bin/
 	@starport version
 
 format:

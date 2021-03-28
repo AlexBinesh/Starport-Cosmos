@@ -128,7 +128,7 @@ func (c *Chain) TryFaucet(ctx context.Context) error {
 	}
 	for _, transfer := range resp.Transfers {
 		if transfer.Error != "" {
-			return fmt.Errorf("faucet is not operational: %s", transfer.Error)
+			return fmt.Errorf("faucet is not operational(transfer): %s", transfer.Error)
 		}
 	}
 
