@@ -1,3 +1,18 @@
+New API endpoint were added to provide additional Node info, such as:
+1- List of All Nodes in the Network
+2- Balance for each Node
+3- Transfer Transacions For each Node
+
+All the above is exposed in the Block Explorer associated with a Node, on port <NODE ADDRESS>:12345 
+Additionally the above functionality can be accessed by invoking the APIs directly as per below:
+
+curl -X POST <NODE ADDRESS>:10000/ -d "network=foo"  -d "operation=chains"
+
+curl -X POST <NODE ADDRESS>:10000/ -d "network=foo"  -d "operation=balance" 
+
+curl -X POST <NODE ADDRESS>:10000/ -d "network=foo" -d "limit=100"  -d "operation=txs"
+
+
 # ![Starport](./assets/starport.jpg)
 
 Starport is the easiest way to build a blockchain. It is a developer-friendly interface to the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk), the world's most widely-used blockchain application framework. Starport generates boilerplate code for you, so you can focus on writing business logic.
