@@ -3,7 +3,7 @@ package chain
 import (
 //    	"github.com/pkg/exec"
 
-	"strconv"
+	//"strconv"
 	"log"
 	"bytes"
 	"context"
@@ -120,17 +120,20 @@ func homePage(w http.ResponseWriter, r *http.Request){
     	log.Println("Will Retrieve this many transactions: ", limit)
     	cmd := gexec.Command("starport", "relayer", "rly", "q", "txs" ,network , "message.action=transfer", "--offset", "1", "--limit", limit)
         out, err := cmd.Output(gexec.Dir("/tmp"))
+//	NumOfTxs := strconv.Atoi(string(out))
     	log.Println("This is the response fro the  server: |", string(out), "|")
-	NumOfTxs = strconv.Atoi(string(out))
-	if _, err := NumOfTxs ; err == nil {
+	/*if _, err := NumOfTxs ; err == nil {
 	    fmt.Printf("%q looks like a number.\n", NumOfTxs)
 	}else{
 	    fmt.Printf("it is not a number .\n", NumOfTxs)
 
     		fmt.Fprintf(w, "0")
 	}
-        if err != nil {
-                log.Fatal(err)
+        */
+	if err != nil {
+    		log.Println("This is the ERROR : |", out, "|")
+    		//fmt.Fprintf(w, string(out))
+                //log.Fatal(err)
         }
 	if (out != nil){
     		fmt.Fprintf(w, string(out))
